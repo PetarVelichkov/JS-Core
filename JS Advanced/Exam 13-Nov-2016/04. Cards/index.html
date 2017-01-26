@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cards</title>
+    <style>
+        div.card {
+            display: inline-block; padding: 10px; margin: 10px;
+            width: 50px; height: 80px; background: #EEE;
+            border: 3px solid #DDD; border-radius: 5px;
+            font-size: 18pt; text-align: center; line-height: 75px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<div id="content"></div>
+<script>
+    function cardDeckBuilder(selector) {
+        let container = $(selector);
+
+        return {
+            addCard: function(face, suit) {
+            let addDiv = $('<div class="card">');
+                let color = '';
+            switch (suit) {
+                case 'C':
+                    color = '\u2663';
+                    break;
+                case 'D':
+                    color = '\u2666';
+                    break;
+                case 'H':
+                    color = '\u2665';
+                    break;
+                case 'S':
+                    color = '\u2660';
+                    break;
+            }
+            addDiv.text(`${face} ${color}`);
+            container.append(addDiv);
+
+                $(selector).on('click', '.card', function(e) {
+                    e.stopImmediatePropagation();
+                    let cards = $('div.card').toArray().map(x => x.textContent).reverse();
+                    container.empty();
+                    for (let elem of cards) {
+                        let card = elem.split(' ');
+                        let cardFace = card[0];
+                        let cardSuit = card[1];
+                        let addDiv = $('<div class="card">');
+                        addDiv.text(`${cardFace} ${cardSuit}`);
+                        container.append(addDiv);
+                    }
+                });
+            }
+        };
+    }
+</script>
+<script>
+    $(function() {
+        let builder = cardDeckBuilder("#content");
+        builder.addCard("10", "D");
+        builder.addCard("K", "S");
+        builder.addCard("Q", "H");
+        builder.addCard("4", "C");
+    });
+</script>
+</body>
+</html>
