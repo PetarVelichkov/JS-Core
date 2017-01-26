@@ -5,6 +5,7 @@ function showView(viewName) {
 
 function showMenuHideLinks() {
     $('#menu a').hide();
+    $('#loggedInUser').hide();
     if (sessionStorage.getItem("authToken")) {
         //Logged in user
         $('#linkHome').show();
