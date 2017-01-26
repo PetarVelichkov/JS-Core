@@ -7,7 +7,7 @@ const kinveyAppAuthHeaders = {
     contentType: 'application/json'
 };
 
-
+//Login
 function loginUser(e) {
     e.preventDefault();
     let userData = {
@@ -34,7 +34,7 @@ function loginUser(e) {
         $('#loggedInUser').show();
     }
 }
-
+//Register
 function registerUser(e) {
     e.preventDefault();
     let userData = {
