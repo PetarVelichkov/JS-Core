@@ -3,6 +3,10 @@ function startApp() {
     showMenuHideLinks();
     showView('viewHome');
 
+    if (sessionStorage.getItem('username')) {
+        $('#loggedInUser').text('Welcome, ' + sessionStorage.getItem('username') + '!');
+        $('#loggedInUser').show();
+    }
 
     $('#infoBox, #errorBox').click(function () {
         $(this).fadeOut();
