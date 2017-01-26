@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Builder</title>
+    <style>td,th { background:#DDD; padding:5px }</style>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<div id="main"></div>
+<script>
+    function tableBuilder(selector) {
+        let container = $(selector);
+
+        return {
+            createTable: function(columnNames) {
+                container.empty();
+                let table = $('<table>');
+                let tr = $('<tr>');
+                for (let column of columnNames) {
+                    let th = $('<th>');
+                    th.text(column);
+                    tr.append(th);
+                }
+                let actionCol = $('<th>');
+                actionCol.text('Action');
+                tr.append(actionCol);
+                table.append(tr);
+                container.append(table);
+            },
+            fillData: function(dataRows) {
+                let table = container.find('table');
+                for (let row of dataRows) {
+                    let tr = $('<tr>');
+                    for (let el of row) {
+                        let td = $('<td>');
+                        td.text(el);
+                        tr.append(td);
+                    }
+                    let btn = $('<button>');
+                    let delTd = $('<td>');
+                    btn.text('Delete');
+                    delTd.append(btn);
+                    tr.append(delTd);
+                    table.append(tr);
+                }
+                $('button').click(function () {
+                    $(this).parent().parent().remove();
+                })
+            }
+        }
+    }
+</script>
+<script>
+    $(function() {
+        let builder = tableBuilder("#main");
+        builder.createTable(['Name', 'Town']);
+        builder.fillData([
+            ['Maria', 'Sofia'],
+            ['Kiril', 'Varna'],
+            ['Ani <new>', 'Ruse'],
+        ]);
+    });
+</script>
+</body>
+</html>
