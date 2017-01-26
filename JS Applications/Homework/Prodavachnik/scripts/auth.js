@@ -30,6 +30,8 @@ function loginUser(e) {
         showMenuHideLinks();
         listItems();
         showInfo('Login successful.');
+        $('#loggedInUser').text('Welcome, ' + sessionStorage.getItem('username') + '!');
+        $('#loggedInUser').show();
     }
 }
 
@@ -54,7 +56,9 @@ function registerUser(e) {
         saveAuthInSession(userInfo);
         showMenuHideLinks();
         listItems();
-        showInfo('User registration successful.')
+        showInfo('User registration successful.');
+        $('#loggedInUser').text('Welcome, ' + sessionStorage.getItem('username') + '!');
+        $('#loggedInUser').show();
     }
 }
 
@@ -75,4 +79,10 @@ function saveAuthInSession(userInfo) {
     sessionStorage.setItem('username', username);
     $('#loggedInUser').text('Hello, ' + username + '!');
     $('#loggedInUser').show();
+}
+
+function getKinveyUserAuthHeaders() {
+    return {
+        Authorization: 'Kinvey ' + sessionStorage.getItem('authToken')
+    };
 }
