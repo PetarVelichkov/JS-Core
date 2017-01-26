@@ -40,6 +40,15 @@ body{
     color: #00bbbb;
 }
 
+#loggedInUser {
+    text-transform: none;
+    float: right;
+}
+
+#loggedInUser:hover {
+    color: #fff;
+    cursor: default;
+}
 
 main > section {
     display: none;
@@ -117,6 +126,13 @@ input[type=button]:hover{
     cursor: pointer;
 }
 
+input[type=submit]:hover{
+    background: #00bbbb;
+    border-color: #00bbbb;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
 #loadingBox {
     background: #7CB3E9;
 }
@@ -130,11 +146,16 @@ input[type=button]:hover{
 table{
     margin: 0 auto;
     padding: 10px;
+    font-size: 1.3em;
+    font-weight: bold;
 }
 
 table th {
-    background: #DDD;
+    background: #6c6c6c;
     padding: 10px;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: beige;
 }
 
 table td {
@@ -151,6 +172,22 @@ table td {
 
 .secondaryButton:hover{
     cursor: pointer;
+}
+
+div#ads table td a {
+    font: bold 0.8em Arial;
+    text-decoration: none;
+    background-color: #cbcbcb;
+    color: #333333;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+}
+
+div#ads table td a:hover {
+    background-color: #EEEEEE;
 }
 
 footer {
