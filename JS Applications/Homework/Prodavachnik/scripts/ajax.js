@@ -10,29 +10,30 @@ function listItems() {
 }
 
 function loadAdsSuccess(adverts) {
-    showInfo('Adverts loaded.');
+    $('#ads').empty();
     if (adverts.length == 0) {
         $('#ads').text('No adverts in the list.');
     } else {
+        showInfo('Adverts loaded.');
         let advertsTable = $('<table>')
             .append($('<tr>')
                 .append('<th>Title</th><th>Description</th>',
                     '<th>Publisher</th><th>Date Published</th>',
                     '<th>Price</th><th>Actions</th>'));
         for (let advert of adverts) {
-            appendBookRow(advert, advertsTable);
+            appendTableRow(advert, advertsTable);
         }
         $('#ads').append(advertsTable);
     }
-    function appendBookRow(advert, advertsTable) {
+    function appendTableRow(advert, advertsTable) {
         let links = [];
-        let readMoreLink = $('<a href="#">[Read More]</a>')
+        let readMoreLink = $('<a href="#">Read More</a>')
             .click(displayAdvert.bind(this, advert._id));
         links = [readMoreLink];
         if (advert._acl.creator == sessionStorage['userId']) {
-            let deleteLink = $('<a href="#">[Delete]</a>')
+            let deleteLink = $('<a href="#">Delete</a>')
                 .click(deleteAdvert.bind(this, advert));
-            let editLink = $('<a href="#">[Edit]</a>')
+            let editLink = $('<a href="#">Edit</a>')
                 .click(loadAdvertForEdit.bind(this, advert));
             links = [readMoreLink, ' ', deleteLink, ' ', editLink];
         }
@@ -49,7 +50,7 @@ function loadAdsSuccess(adverts) {
 
     }
 }
-
+//Delete
 function deleteAdvert(advert) {
     $.ajax({
         method: 'DELETE',
@@ -63,17 +64,7 @@ function deleteAdvert(advert) {
         showInfo('Book deleted.')
     }
 }
-
-function loadAdvertForEdit(advert) {
-    $('#formEditAd input[name=id]').val(advert._id);
-    $('#formEditAd input[name=title]').val(advert.title);
-    $('#formEditAd textarea[name=description]').val(advert.description);
-    $('#formEditAd input[name=datePublished]').val(advert.datePublished);
-    $('#formEditAd input[name=price]').val(advert.price);
-    $('#formEditAd input[name=image]').val(advert.image);
-    showView('viewEditAd');
-}
-
+//Create
 function createAdvert(e) {
     e.preventDefault();
     let advertData = {
@@ -97,7 +88,16 @@ function createAdvert(e) {
         showInfo('Book created.')
     }
 }
-
+//Edit
+function loadAdvertForEdit(advert) {
+    $('#formEditAd input[name=id]').val(advert._id);
+    $('#formEditAd input[name=title]').val(advert.title);
+    $('#formEditAd textarea[name=description]').val(advert.description);
+    $('#formEditAd input[name=datePublished]').val(advert.datePublished);
+    $('#formEditAd input[name=price]').val(advert.price);
+    $('#formEditAd input[name=image]').val(advert.image);
+    showView('viewEditAd');
+}
 function editAdvert(e) {
     e.preventDefault();
     let advertData = {
@@ -122,12 +122,6 @@ function editAdvert(e) {
         listItems();
         showInfo('Advert edited.')
     }
-}
-
-function getKinveyUserAuthHeaders() {
-    return {
-        Authorization: 'Kinvey ' + sessionStorage.getItem('authToken')
-    };
 }
 
 function displayAdvert(advertId) {
